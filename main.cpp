@@ -4,13 +4,13 @@ using namespace std;
 
 #define edl '\n'
 
-char board[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+vector<vector<char>> board = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
 
 char player('x');
 
 int nom;
 
-void drawboard()
+void draw_board()
 {
     system("cls");
     cout << edl << edl << "\t\t\t\t\tWelcome TO \" Tic Tac Toe Game \" |^_^|" << edl << edl << edl << edl;
@@ -25,218 +25,108 @@ void drawboard()
     cout << "\t\t     |     |     " << edl << edl;
 }
 
-void inputnumber()
+void input_number()
 {
     int num;
-    cout << "It's \" " << player << " \" turn. "
-         << "Press a valid number :  ";
-    cin >> num;
-    if (num < 10 && num > 0)
+    bool valid_input(false);
+    while (!valid_input)
     {
-        if (num == 1)
+        cout << "It's \"" << player << "\" turn. Press a valid number: ";
+        cin >> num;
+        if (num >= 1 && num <= 9)
         {
-            if (board[0][0] == '1')
+            int row((num - 1) / 3), col((num - 1) % 3);
+            if (board[row][col] == num + '0')
             {
-                board[0][0] = player;
+                board[row][col] = player;
+                valid_input = true;
             }
             else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
+                cout << "This field is already occupied. Choose another!" << edl;
         }
-        else if (num == 2)
-        {
-            if (board[0][1] == '2')
-            {
-                board[0][1] = player;
-            }
-            else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
-        }
-        else if (num == 3)
-        {
-            if (board[0][2] == '3')
-            {
-                board[0][2] = player;
-            }
-            else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
-        }
-        else if (num == 4)
-        {
-            if (board[1][0] == '4')
-            {
-                board[1][0] = player;
-            }
-            else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
-        }
-        else if (num == 5)
-        {
-            if (board[1][1] == '5')
-            {
-                board[1][1] = player;
-            }
-            else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
-        }
-        else if (num == 6)
-        {
-            if (board[1][2] == '6')
-            {
-                board[1][2] = player;
-            }
-            else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
-        }
-        else if (num == 7)
-        {
-            if (board[2][0] == '7')
-            {
-                board[2][0] = player;
-            }
-            else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
-        }
-        else if (num == 8)
-        {
-            if (board[2][1] == '8')
-            {
-                board[2][1] = player;
-            }
-            else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
-        }
-        else if (num == 9)
-        {
-            if (board[2][2] == '9')
-            {
-                board[2][2] = player;
-            }
-            else
-            {
-                cout << edl << "This Field is already Occupied, Choose another !!" << edl << edl;
-                inputnumber();
-            }
-        }
-    }
-    else
-    {
-        cout << edl << "Please Enter a valid number from 1 to 9" << edl << edl;
-        inputnumber();
+        else
+            cout << "Please enter a valid number from 1 to 9..:)" << edl;
     }
 }
 
-void changeplayer()
+void change_player()
 {
     player = (player == 'x' ? 'o' : 'x');
 }
 
-char whowin()
+char who_win()
 {
-
-    // here to Check X win
-
-    if (board[0][0] == 'x' && board[0][1] == 'x' && board[0][2] == 'x')
-        return 'x';
-
-    if (board[1][0] == 'x' && board[1][1] == 'x' && board[1][2] == 'x')
-        return 'x';
-
-    if (board[2][0] == 'x' && board[2][1] == 'x' && board[2][2] == 'x')
-        return 'x';
-
-    if (board[0][0] == 'x' && board[1][0] == 'x' && board[2][0] == 'x')
-        return 'x';
-
-    if (board[0][1] == 'x' && board[1][1] == 'x' && board[2][1] == 'x')
-        return 'x';
-
-    if (board[0][2] == 'x' && board[1][2] == 'x' && board[2][2] == 'x')
-        return 'x';
-
-    if (board[0][0] == 'x' && board[1][1] == 'x' && board[2][2] == 'x')
-        return 'x';
-
-    if (board[0][2] == 'x' && board[1][1] == 'x' && board[2][0] == 'x')
-        return 'x';
-
-    // here to Check O win
-
-    if (board[0][0] == 'o' && board[0][1] == 'o' && board[0][2] == 'o')
-        return 'o';
-
-    if (board[1][0] == 'o' && board[1][1] == 'o' && board[1][2] == 'o')
-        return 'o';
-
-    if (board[2][0] == 'o' && board[2][1] == 'o' && board[2][2] == 'o')
-        return 'o';
-
-    if (board[0][0] == 'o' && board[1][0] == 'o' && board[2][0] == 'o')
-        return 'o';
-
-    if (board[0][1] == 'o' && board[1][1] == 'o' && board[2][1] == 'o')
-        return 'o';
-
-    if (board[0][2] == 'o' && board[1][2] == 'o' && board[2][2] == 'o')
-        return 'o';
-
-    if (board[0][0] == 'o' && board[1][1] == 'o' && board[2][2] == 'o')
-        return 'o';
-
-    if (board[0][2] == 'o' && board[1][1] == 'o' && board[2][0] == 'o')
-        return 'o';
-
+    vector<char> players = {'x', 'o'};
+    for (auto player : players)
+    {
+        // Check rows
+        for (int row(0); row < 3; ++row)
+        {
+            bool win(true);
+            for (int col(0); col < 3; ++col)
+            {
+                if (board[row][col] != player)
+                {
+                    win = false;
+                    break;
+                }
+            }
+            if (win)
+                return player;
+        }
+        // Check columns
+        for (int col(0); col < 3; ++col)
+        {
+            bool win(true);
+            for (int row(0); row < 3; ++row)
+            {
+                if (board[row][col] != player)
+                {
+                    win = false;
+                    break;
+                }
+            }
+            if (win)
+                return player;
+        }
+        // Check diagonals
+        if (board[0][0] == player && board[1][1] == player && board[2][2] == player)
+            return player;
+        if (board[0][2] == player && board[1][1] == player && board[2][0] == player)
+            return player;
+    }
     return '#';
 }
+
+void play_again(int winner);
 
 int main()
 {
     nom = 0;
-    drawboard();
+    draw_board();
     while (true)
     {
         ++nom;
-        inputnumber();
-        drawboard();
-        if (whowin() == 'x')
-        {
-            cout << "Player 1 won. Congratulations,friend" << edl << edl;
-            break;
-        }
-        else if (whowin() == 'o')
-        {
-            cout << "Player 2 won. Congratulations,friend" << edl << edl;
-            break;
-        }
-        else if (whowin() == '#' && nom == 9)
-        {
-            cout << "It is Draw,friends" << edl << edl;
-            break;
-        }
-        changeplayer();
+        input_number();
+        draw_board();
+        if (who_win() == 'x')
+            play_again(1);
+        else if (who_win() == 'o')
+            play_again(2);
+        else if (who_win() == '#' && nom == 9)
+            play_again(0);
+        change_player();
     }
-    return 0;
+    return (0);
+}
+
+void play_again(int winner)
+{
+    if (winner)
+        cout << "Player " << winner << " won. Congratulations, friend" << edl << edl;
+    else
+        cout << "It is Draw, friends" << edl << edl;
+    system("pause");
+    board = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+    main();
 }
