@@ -34,7 +34,7 @@ void input_number()
     {
         cout << "It's \"" << player << "\" turn. Press a valid number: ";
         cin >> num;
-        if (num >= 1 && num <= 9)
+        if (num > 0 && num < 10)
         {
             int row((num - 1) / 3), col((num - 1) % 3);
             if (board[row][col] == num + '0')
